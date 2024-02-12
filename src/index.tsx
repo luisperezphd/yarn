@@ -1388,11 +1388,17 @@ function ShowLogInKeyModal(props: { keyString: string; onContinue: () => void; o
 function EnterLogInKeyModal(props: { onLogin: (key: string) => void; onHide: () => void }) {
   const [key, setKey] = useState("");
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   return (
     <Modal title="Enter log in key" onHide={props.onHide} className="p-8 flex flex-col gap-4" width={500}>
       <div>You create a log in key when you first create a log in for a thread.</div>
       <div>You can use it to log back into that thread.</div>
-      <input value={key} onChange={(e) => setKey(e.currentTarget.value)} placeholder="Key" className="w-full bg-zinc-100 outline-offset-0 outline-1 focus:outline-zinc-300 outline-none px-4 py-4 placeholder:text-zinc-400 rounded-xl" />
+      <input ref={inputRef} value={key} onChange={(e) => setKey(e.currentTarget.value)} placeholder="Key" className="w-full bg-zinc-100 outline-offset-0 outline-1 focus:outline-zinc-300 outline-none px-4 py-4 placeholder:text-zinc-400 rounded-xl" />
       <BlackButton label="Log In" onClick={() => props.onLogin(key)} isDisabled={!key.trim().length} />
     </Modal>
   );

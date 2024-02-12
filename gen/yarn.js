@@ -25736,6 +25736,7 @@
         LogInModal,
         {
           appState,
+          onHide: hideLogInModal,
           onCreate: (username, imageIndex, logInKey) => {
             promiseDoneCall(async () => {
               const encryptedUsername = await logInKeyEncrypt(logInKey, username);
@@ -25809,72 +25810,62 @@
         setLogInKey(await logInKeyCreate());
       });
     }, []);
-    return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-      Modal,
-      {
-        title: "Log in",
-        onHide: (
-          // TODO:
-          noop
-        ),
-        children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "flex flex-col items-center text-lg p-8", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("input", { value: username, ref: inputRef, onChange: (e) => setUsername(e.currentTarget.value), placeholder: "Username", className: "x:mt-5 w-full bg-zinc-100 outline-offset-0 outline-1 focus:outline-zinc-300 outline-none px-4 py-4 placeholder:text-zinc-400 rounded-xl" }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "text-zinc-300 flex flex-col items-center mt-4 gap-4 border w-full rounded-xl p-2", children: [
-            "Choose a profile picture",
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "flex gap-4 w-full p-2 justify-evenly", children: getProfilePictures().map(
-              (picture, i) => availablePictureIndexes.includes(i) && // format
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-                Img,
-                {
-                  src: picture,
-                  className: cn("w-16 h-16 cursor-pointer rounded-full border border-zinc-300", i === selectedProfilePictureIndex && "outline-4 outline-black outline outline-offset-1"),
-                  onClick: () => setSelectedProfilePicture(i)
-                },
-                i
-              )
-            ) })
-          ] }),
+    return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Modal, { title: "Log in", onHide: props.onHide, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "flex flex-col items-center text-lg p-8", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("input", { value: username, ref: inputRef, onChange: (e) => setUsername(e.currentTarget.value), placeholder: "Username", className: "x:mt-5 w-full bg-zinc-100 outline-offset-0 outline-1 focus:outline-zinc-300 outline-none px-4 py-4 placeholder:text-zinc-400 rounded-xl" }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "text-zinc-300 flex flex-col items-center mt-4 gap-4 border w-full rounded-xl p-2", children: [
+        "Choose a profile picture",
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "flex gap-4 w-full p-2 justify-evenly", children: getProfilePictures().map(
+          (picture, i) => availablePictureIndexes.includes(i) && // format
           /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-            "button",
+            Img,
             {
-              onClick: () => {
-                showKeyModal();
-              },
-              disabled: disableMessage != null,
-              title: disableMessage ?? void 0,
-              className: "mt-4 text-lg w-full bg-black text-white font-medium disabled:text-gray-500 outline-offset-0 outline-1 focus:outline-zinc-300 outline-none px-4 py-5 placeholder:text-zinc-400 rounded-xl disabled:cursor-not-allowed",
-              children: "Create Log In"
-            }
-          ),
-          hash && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_jsx_runtime4.Fragment, { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "grid grid-cols-[1fr_max-content_1fr] w-full items-center gap-4 mt-6 text-zinc-400", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Divider, { className: "mt-1" }),
-              " or ",
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Divider, { className: "mt-1" })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-              "button",
-              {
-                onClick: () => {
-                  showEnterKey();
-                },
-                className: "mt-6 text-lg w-full bg-black text-white font-medium disabled:text-gray-500 outline-offset-0 outline-1 focus:outline-zinc-300 outline-none px-4 py-5 placeholder:text-zinc-400 rounded-xl disabled:cursor-not-allowed",
-                children: "Use Log In Key"
-              }
-            )
-          ] }),
-          isEnterKeyVisible && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(EnterLogInKeyModal, { onHide: hideEnterKey, onLogin: props.onLogIn }),
-          isKeyModalVisible && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-            ShowLogInKeyModal,
-            {
-              keyString: logInKey,
-              onContinue: () => props.onCreate(username.trim(), selectedProfilePictureIndex, logInKey),
-              onHide: hideKeyModal
-            }
+              src: picture,
+              className: cn("w-16 h-16 cursor-pointer rounded-full border border-zinc-300", i === selectedProfilePictureIndex && "outline-4 outline-black outline outline-offset-1"),
+              onClick: () => setSelectedProfilePicture(i)
+            },
+            i
           )
-        ] })
-      }
-    );
+        ) })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+        "button",
+        {
+          onClick: () => {
+            showKeyModal();
+          },
+          disabled: disableMessage != null,
+          title: disableMessage ?? void 0,
+          className: "mt-4 text-lg w-full bg-black text-white font-medium disabled:text-gray-500 outline-offset-0 outline-1 focus:outline-zinc-300 outline-none px-4 py-5 placeholder:text-zinc-400 rounded-xl disabled:cursor-not-allowed",
+          children: "Create Log In"
+        }
+      ),
+      hash && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_jsx_runtime4.Fragment, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "grid grid-cols-[1fr_max-content_1fr] w-full items-center gap-4 mt-6 text-zinc-400", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Divider, { className: "mt-1" }),
+          " or ",
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Divider, { className: "mt-1" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+          "button",
+          {
+            onClick: () => {
+              showEnterKey();
+            },
+            className: "mt-6 text-lg w-full bg-black text-white font-medium disabled:text-gray-500 outline-offset-0 outline-1 focus:outline-zinc-300 outline-none px-4 py-5 placeholder:text-zinc-400 rounded-xl disabled:cursor-not-allowed",
+            children: "Use Log In Key"
+          }
+        )
+      ] }),
+      isEnterKeyVisible && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(EnterLogInKeyModal, { onHide: hideEnterKey, onLogin: props.onLogIn }),
+      isKeyModalVisible && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+        ShowLogInKeyModal,
+        {
+          keyString: logInKey,
+          onContinue: () => props.onCreate(username.trim(), selectedProfilePictureIndex, logInKey),
+          onHide: hideKeyModal
+        }
+      )
+    ] }) });
   }
   function PostDetailView(props) {
     const post = getPost(props.appState, props.postId);
@@ -26461,10 +26452,14 @@
   }
   function EnterLogInKeyModal(props) {
     const [key, setKey] = (0, import_react3.useState)("");
+    const inputRef = (0, import_react3.useRef)(null);
+    (0, import_react3.useEffect)(() => {
+      inputRef.current?.focus();
+    }, []);
     return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(Modal, { title: "Enter log in key", onHide: props.onHide, className: "p-8 flex flex-col gap-4", width: 500, children: [
       /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { children: "You create a log in key when you first create a log in for a thread." }),
       /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { children: "You can use it to log back into that thread." }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("input", { value: key, onChange: (e) => setKey(e.currentTarget.value), placeholder: "Key", className: "w-full bg-zinc-100 outline-offset-0 outline-1 focus:outline-zinc-300 outline-none px-4 py-4 placeholder:text-zinc-400 rounded-xl" }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("input", { ref: inputRef, value: key, onChange: (e) => setKey(e.currentTarget.value), placeholder: "Key", className: "w-full bg-zinc-100 outline-offset-0 outline-1 focus:outline-zinc-300 outline-none px-4 py-4 placeholder:text-zinc-400 rounded-xl" }),
       /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(BlackButton, { label: "Log In", onClick: () => props.onLogin(key), isDisabled: !key.trim().length })
     ] });
   }
