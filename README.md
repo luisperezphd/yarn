@@ -64,6 +64,6 @@ Support more than 4 users. Really this is about offering more options for profil
 
 Instead or in addition to being able to paste a link to your browser, we could provide an option to "open a thread" and allow pasting the link. This would make it more convinient to use yarn.html right on your computer, since otherwise the url generate would be particular to that computer. Maybe yarn could detect that it's a local usage and (file://) protocol and offer instructions and state instead of a link.
 
-
+Make it responsive / mobile friendly.
 
 
